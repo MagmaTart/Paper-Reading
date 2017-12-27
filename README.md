@@ -3,7 +3,7 @@ Read AWESOME PAPERS of deep learning!
 
 ### Lists
 
-1. [FCN (Fully Convolutional Networks](./summarys/FCN.md)
+1. [FCN (Fully Convolutional Networks)](./summarys/FCN.md)
 1. [Faster-RCNN](./summarys/Faster-RCNN.md)
 1. [YOLO (You Look Only Once)](./summarys/YOLO.md)
 1. [SSD (Single Shot Detector)](./summarys/SSD.md)
