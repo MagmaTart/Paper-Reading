@@ -1,4 +1,4 @@
-﻿# InfoGAN
+# InfoGAN
 
 ### Introduction
 
@@ -54,14 +54,17 @@ InfoGAN의 목적은 ![](https://latex.codecogs.com/png.latex?I%28c%20%5C%20%3B%
 
 ![](https://latex.codecogs.com/png.latex?L_I%28G%2C%20Q%29%20%3D%20E_%7Bx%20%5Csim%20G%28z%2C%20c%29%7D%5BE_%7Bc%27%20%5Csim%20P%28c%7Cx%29%7D%5B%5Clog%20Q%28c%27%7Cx%29%5D%5D%20&plus;%20H%28c%29) 입니다.
 
-Lower bound를 이렇게 구한 이유는 ![](https://latex.codecogs.com/png.latex?P) 대신 ![](https://latex.codecogs.com/png.latex?Q) 분포를 사용하기 위해서였는데, 식 내부에는 아직 ![](https://latex.codecogs.com/png.latex?P%28c%7Cx%29) 분포가 존재합니다. 이를 해결하기 위해서 논문에서는 __Law of total expectation__ 으로 해결했습니다. 전 아직 법칙을 이해하지는 못했습니다. 하지만 이 법칙은 다음과 같은 수식으로 정리됩니다.
+Lower bound를 이렇게 구한 이유는 ![](https://latex.codecogs.com/png.latex?P) 대신 ![](https://latex.codecogs.com/png.latex?Q) 분포를 사용하기 위해서였는데, 식 내부에는 아직 ![](https://latex.codecogs.com/png.latex?P%28c%7Cx%29) 분포가 존재합니다. 이를 해결하기 위한 방법이 논문의 Lemma 5.1에 제시되어 있습니다. 확률변수 ![](https://latex.codecogs.com/png.latex?X), ![](https://latex.codecogs.com/png.latex?Y)에 대해서 다음 식이 성립한다고 합니다.
 
-![](https://latex.codecogs.com/png.latex?E%28X%29%20%3D%20E%28E%28X%7CY%29%29)
+![](https://latex.codecogs.com/png.latex?E_%7Bx%20%5Csim%20X%2C%20y%20%5Csim%20Y%7Cx%7D%5Bf%28x%2C%20y%29%5D%20%3D%20E_%7Bx%20%5Csim%20X%2C%20y%20%5Csim%20Y%7Cx%2C%20x%27%20%5Csim%20X%7Cy%7D%5Bf%28x%27%2C%20y%29%5D)
 
 이 법칙에 따라서 Lower bound ![](https://latex.codecogs.com/png.latex?L_I%28G%2C%20Q%29)의 식을 ![](https://latex.codecogs.com/png.latex?P%28c%7Cx%29)에 의존하지 않게 아래와 같이 바꿀 수 있습니다.
 
 ![](https://latex.codecogs.com/png.latex?L_I%28G%2C%20Q%29%20%3D%20E_%7Bx%20%5Csim%20G%28z%2C%20c%29%7D%5BE_%7Bc%27%20%5Csim%20P%28c%7Cx%29%7D%5B%5Clog%20Q%28c%27%7Cx%29%5D%5D%20&plus;%20H%28c%29) ![](https://latex.codecogs.com/png.latex?%3D%20E_%7Bc%20%5Csim%20P%28c%29%2C%20x%20%5Csim%20G%28z%2C%20c%29%7D%5B%5Clog%20Q%28c%7Cx%29%5D%20&plus;%20H%28c%29)
 
+Lemma 5.1의 식과 ![](https://latex.codecogs.com/png.latex?L_I%28G%2C%20Q%29)의 식을 ![](https://latex.codecogs.com/png.latex?x%20%3A%20c%2C%20%5C%20%5C%20X%20%3A%20P%28c%29%2C%20%5C%20%5C%20y%20%3A%20x%2C%20%5C%20%5C%20Y%20%3A%20G%28z%2C%20c%29)
+ 처럼 대응시키면 쉽게 이해가 가실 겁니다.
+ 
 ### Objective Function
 
 InfoGAN의 목적 함수는 상호정보량의 최대화를 위해 다음과 같이 정의됩니다.
