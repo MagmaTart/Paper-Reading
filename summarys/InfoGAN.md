@@ -44,9 +44,11 @@ InfoGAN의 목적은 ![](https://latex.codecogs.com/png.latex?I%28c%20%5C%20%3B%
 
 여기서 ![](https://latex.codecogs.com/png.latex?D_%7BKL%7D%28P%28%5Ccdot%7Cx%29%7C%7CQ%28%5Ccdot%7Cx%29%29)는 ![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q)의 Entropy 차이를 의미합니다. 또한 ![](https://latex.codecogs.com/png.latex?E_%7Bc%27%20%5Csim%20P%28c%7Cx%29%7D%5B%5Clog%20Q%28c%27%7Cx%29%5D)는 ![](https://latex.codecogs.com/png.latex?Q)의 엔트로피를 의미합니다. ![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q)의 엔트로피에 대해서 ![](https://latex.codecogs.com/png.latex?P%20%3D%20D_%7BKL%7D%28P%7C%7CQ%29%20&plus;%20Q)이므로 식을 위와 같이 전개할 수 있습니다. 
 
-우리의 목표는 ![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q)의 분포가 동일해지면서, 상호 정보량을 최대화하는 것입니다. 따라서 ![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q) 사이의 ![](https://latex.codecogs.com/png.latex?D_%7BKL%7D%28P%7C%7CQ%29)를 0으로 고정시킨 후, ![](https://latex.codecogs.com/png.latex?Q)를 최대화하는 방향으로 업데이트하면 둘 다 만족할 수 있습니다. 따라서 아래의 Lower bound를 만들 수 있습니다.
+우리의 목표는 ![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q)의 분포가 동일해지면서, 상호 정보량을 최대화하는 것입니다. 따라서 ![](https://latex.codecogs.com/png.latex?Q)를 최대화하는 방향으로 업데이트하면 둘 다 만족할 수 있습니다. 따라서 아래의 Lower bound를 만들 수 있습니다.
 
 ![](https://latex.codecogs.com/png.latex?I%28c%20%5C%20%3B%20G%28z%2C%20c%29%29%20%5C%20%5Cgeq%20%5C%20E_%7Bx%20%5Csim%20G%28z%2C%20c%29%7D%5BE_%7Bc%27%20%5Csim%20P%28c%7Cx%29%7D%5B%5Clog%20Q%28c%27%7Cx%29%5D%5D%20&plus;%20H%28c%29)
+
+![](https://latex.codecogs.com/png.latex?P)와 ![](https://latex.codecogs.com/png.latex?Q)의 KL Divergence는 Lower bound에서 사라집니다. 그 이유는, 해당 KL Divergence가 상호정보량과 관련이 없기 때문입니다. ![](https://latex.codecogs.com/png.latex?c)와 직접적인 연관이 없고 식 안에서 상수로 취급되기 때문에, 값을 Maximize해가는 Lower bound가 건들 이유가 없습니다.
 
 ![](https://latex.codecogs.com/png.latex?E_%7Bc%27%20%5Csim%20P%28c%7Cx%29%7D%5B%5Clog%20Q%28c%27%7Cx%29%5D)가 커질수록 ![](https://latex.codecogs.com/png.latex?I%28c%20%5C%20%3B%20G%28z%2C%20c%29%29)에 대한 Lower bound가 커지고, ![](https://latex.codecogs.com/png.latex?I%28c%20%5C%20%3B%20G%28z%2C%20c%29%29)는 Lower bound 이상으로 유지되도록 강제되므로 상호정보량이 커지도록 유도할 수 있습니다. 따라서 ![](https://latex.codecogs.com/png.latex?c)가 Generator의 이미지 생성에 미치는 영향이 커집니다.
 
