@@ -1,11 +1,11 @@
 # Mask R-CNN
 
-#### Introduction
+### Introduction
 Mask R-CNN은 현재 Two-Stage Detector 모델계의 State-of-the-art 모델입니다. 이 모델 덕분에 Instance Segmentation이라는 Detection의 새로운 분야가 개척된 만큼, 많은 관심을 받았던 논문입니다.
 
 이 논문의 목적은 Object Instance Segmentation을 위한 간단하고 유연한 프레임워크를 만드는 것이었다고 합니다. Instance Segmentaion은 입력 이미지 내에서 각 Object를 찾아냄과 동시에 높은 퀄리티의 Segmentation Mask를 씌워주는 작업을 의미합니다. 이것의 구현을 위해서, Faster R-CNN에 원래 있던 Bounding Box Regressor와 병렬적으로 돌아가는 Object Mask Predictor를 붙이겠다는 아이디어를 떠올렸습니다. 그리고 논문의 구현에 따르면, 이 모델은 Faster R-CNN에 가볍게 추가적으로 작은 모델을 붙이는 모양으로 만들 수 있고, 추가적인 Overhead도 거의 없이 Faster R-CNN의 5fps대 속도와 성능을 유지한다고 합니다. 또 Mask R-CNN을 이용하면, Segmentation이 수행되는 특징을 응용해서 사람의 신체 포즈를 잡아내는 등의 다양한 활용이 가능하다고 합니다. 또 이 모델은, COCO의 모든 Task (Instance Segmentation, Bounding-Box Object Detection, Person Keypoint Detection)에서 최고의 결과를 보여주었습니다.
 
-#### Mask R-CNN
+### Mask R-CNN
 Mask R-CNN의 네트워크 구조는 간단합니다. 기존 Faster R-CNN 모델에서, 각 RoI에 대해 Segmentation Mask를 추측하는 네트워크 구조(branch)를 Bounding Box를 예측하는 구조와 병렬적으로 동시에 돌아가도록 추가한 것입니다. 여기서 Mask branch는 작은 FCN(Fully Convolutional Network) 네트워크로, 픽셀 단위로 Segmentation을 수행합니다.
 
 Faster R-CNN의 구조가 확장이 용이하도록 유연하게 구성되어 있기 때문에, 별다른 Computational Cost의 증가 없이 모델을 구현할 수 있었다고 합니다. 하지만 기존 모델에서 추가적으로 Masking을 구현하다 보니 문제도 있었습니다. Faster R-CNN은 네트워크의 Input과 Output간에 픽셀 단위의 조정이 필요 없었습니다. Bounding Box를 찾고 Classification을 하면 그만이었기 때문입니다. RoI Pooling의 방법만 봐도 그러한데, 이는 특징을 추출하는 과정에서 양자화(quantization)을 일으킵니다. 그래서 양자화를 방지할 수 있는 방법인 RoiAlign을 고안해서 적용하였다고 합니다.
@@ -42,14 +42,14 @@ Classification Loss인 ![](https://latex.codecogs.com/gif.latex?L_%7Bcls%7D)와 
 픽셀단위 Sigmoid를 적용하기 위해서, Mask Prediction Loss인 ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)는 픽셀 단위 Binary Cross-entropy Loss의 평균으로 이루어집니다. 해당 RoI의 Ground-truth 클래스가 ![](https://latex.codecogs.com/gif.latex?k)번째 클래스라면, ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)는 ![](https://latex.codecogs.com/gif.latex?k)번째 마스크에서만 정의되고, 나머지 마스크 출력들은 Loss에 영향을 미치지 않습니다.
 ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)의 이런 디자인은 클래스에 상관없이 모든 마스크를 생성할 수 있게 만들어줍니다. Classification Branch는 출력 마스크를 선택하기 위해 클래스를 예측하는 용도로 사용됩니다. Mask R-CNN에서는 이렇게 Mask와 Class의 Prediction을 분리했습니다.
 
-#### Model Structure / Training
+### Model Structure / Training
 Backbone Network로는 ResNet-FPN을 사용한다고 합니다. ResNet 구조를 통과한 후에 Feature를 FPN 구조에서 추출한다고 보면 될 것 같습니다. Mask R-CNN의 네트워크 구조를 보면 아래와 같이, 기존 Faster R-CNN에서 Mask를 Prediction하는 Branch가 FCN 구조로 추가되어 있는 모습을 보실 수 있습니다.
 
 ![](../images/MaskRCNN/MaskrcnnStructure.PNG)
 
 Masking의 Target은 Ground-truth Mask와 RoI와의 Intersection입니다. Mask Branch는 저것에 자신이 예측한 Mask를 맞추기 위해 Training합니다.
 
-#### Result
+### Result
 아래는 결과들 중 Cityscape 데이터셋 내부 이미지들에 대해서 Prediction을 수행한 결과입니다.
 
 ![](../images/MaskRCNN/MaskrcnnResult.PNG)
