@@ -8,9 +8,9 @@ Mask R-CNN은 현재 Two-Stage Detector 모델계의 State-of-the-art 모델입�
 ### Mask R-CNN
 Mask R-CNN의 네트워크 구조는 간단합니다. 기존 Faster R-CNN 모델에서, 각 RoI에 대해 Segmentation Mask를 추측하는 네트워크 구조(branch)를 Bounding Box를 예측하는 구조와 병렬적으로 동시에 돌아가도록 추가한 것입니다. 여기서 Mask branch는 작은 FCN(Fully Convolutional Network) 네트워크로, 픽셀 단위로 Segmentation을 수행합니다.
 
-Faster R-CNN의 구조가 확장이 용이하도록 유연하게 구성되어 있기 때문에, 별다른 Computational Cost의 증가 없이 모델을 구현할 수 있었다고 합니다. 하지만 기존 모델에서 추가적으로 Masking을 구현하다 보니 문제도 있었습니다. Faster R-CNN은 네트워크의 Input과 Output간에 픽셀 단위의 조정이 필요 없었습니다. Bounding Box를 찾고 Classification을 하면 그만이었기 때문입니다. RoI Pooling의 방법만 봐도 그러한데, 이는 특징을 추출하는 과정에서 양자화(quantization)을 일으킵니다. 그래서 양자화를 방지할 수 있는 방법인 RoiAlign을 고안해서 적용하였다고 합니다.
+Faster R-CNN의 구조가 확장이 용이하도록 유연하게 구성되어 있기 때문에, 별다른 Computational Cost의 증가 없이 모델을 구현할 수 있었다고 합니다. 하지만 기존 모델에서 추가적으로 Masking을 구현하다 보니 문제도 있었습니다. Faster R-CNN은 네트워크의 Input과 Output간에 픽셀 단위의 조정이 필요 없었습니다. Bounding Box를 찾고 Classification을 하면 그만이었기 때문입니다. RoI Pooling의 방법만 봐도 그러한데, 이는 특징을 추출하는 과정에서 양자화(quantization)을 일으킵니다. 그래서 양자화를 방지할 수 있는 방법인 __RoiAlign__ 을 고안해서 적용하였다고 합니다.
 
-여기서 RoIAlign에 대해 알아보고 가겠습니다.
+여기서 __RoIAlign__ 에 대해 알아보고 가겠습니다.
 
 기존 Faster R-CNN에서 RoI pooling은 각 RoI에서 7 x 7과 같은 작은 크기의 Feature Map을 추출하기 위해 사용됩니다. Backbone Network를 거치면서 입력 이미지에 대한 Feature Map의 사이즈도 줄어들었기 때문에, RoI의 크기는 보통 소숫점이 붙은 Floating Number가 되어 있습니다. 그걸 정수화해서 RoI를 다시 만드는 과정에서 quantization이 일어나게 됩니다. 실수를 정수로 바꾸는 과정에서 픽셀 단위의 정확한 정보가 무시되는겁니다. 그 RoI는 또 여러 개의 bin으로 나누어져서 Max Pooling 등의 방법으로 값들을 모으는데, 이 과정에서 quantization이 또 한번 구현됩니다. 예를 들어 20 x 20 크기의 RoI에서 7 x 7 크기의 Feature Map을 생성하려고 하면, 20 / 7 = 약 2.86으로 값이 딱 떨어지지 않기 때문에 어쩔 수 없이 몇몇 픽셀들이 주변 픽셀들과 병합되는 일이 발생하게 됩니다.
 
