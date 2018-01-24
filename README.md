@@ -13,3 +13,4 @@ Read AWESOME PAPERS of deep learning!
 1. [InfoGAN (Mutual Information Maximizing GAN)](./summarys/InfoGAN.md)
 9. [Focal Loss for Dense Object Detection](./summarys/Focal-Loss-for-Dense-Object-Detection.md)
 10. [Mask R-CNN](./summarys/MaskRCNN.md)
+11. [Light-Head R-CNN](./summarys/Light-Head-R-CNN.md)
