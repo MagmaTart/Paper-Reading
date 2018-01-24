@@ -1,62 +1,62 @@
 # Mask R-CNN
 
-#### Introduction
-Mask R-CNNÀº ÇöÀç Two-Stage Detector ¸ðµ¨°èÀÇ State-of-the-art ¸ðµ¨ÀÔ´Ï´Ù. ÀÌ ¸ðµ¨ ´öºÐ¿¡ Instance SegmentationÀÌ¶ó´Â DetectionÀÇ »õ·Î¿î ºÐ¾ß°¡ °³Ã´µÈ ¸¸Å­, ¸¹Àº °ü½ÉÀ» ¹Þ¾Ò´ø ³í¹®ÀÔ´Ï´Ù.
+### Introduction
+Mask R-CNNì€ í˜„ìž¬ Two-Stage Detector ëª¨ë¸ê³„ì˜ State-of-the-art ëª¨ë¸ìž…ë‹ˆë‹¤. ì´ ëª¨ë¸ ë•ë¶„ì— Instance Segmentationì´ë¼ëŠ” Detectionì˜ ìƒˆë¡œìš´ ë¶„ì•¼ê°€ ê°œì²™ëœ ë§Œí¼, ë§Žì€ ê´€ì‹¬ì„ ë°›ì•˜ë˜ ë…¼ë¬¸ìž…ë‹ˆë‹¤.
 
-ÀÌ ³í¹®ÀÇ ¸ñÀûÀº Object Instance SegmentationÀ» À§ÇÑ °£´ÜÇÏ°í À¯¿¬ÇÑ ÇÁ·¹ÀÓ¿öÅ©¸¦ ¸¸µå´Â °ÍÀÌ¾ú´Ù°í ÇÕ´Ï´Ù. Instance SegmentaionÀº ÀÔ·Â ÀÌ¹ÌÁö ³»¿¡¼­ °¢ Object¸¦ Ã£¾Æ³¿°ú µ¿½Ã¿¡ ³ôÀº Ä÷¸®Æ¼ÀÇ Segmentation Mask¸¦ ¾º¿öÁÖ´Â ÀÛ¾÷À» ÀÇ¹ÌÇÕ´Ï´Ù. ÀÌ°ÍÀÇ ±¸ÇöÀ» À§ÇØ¼­, Faster R-CNN¿¡ ¿ø·¡ ÀÖ´ø Bounding Box Regressor¿Í º´·ÄÀûÀ¸·Î µ¹¾Æ°¡´Â Object Mask Predictor¸¦ ºÙÀÌ°Ú´Ù´Â ¾ÆÀÌµð¾î¸¦ ¶°¿Ã·È½À´Ï´Ù. ±×¸®°í ³í¹®ÀÇ ±¸Çö¿¡ µû¸£¸é, ÀÌ ¸ðµ¨Àº Faster R-CNN¿¡ °¡º±°Ô Ãß°¡ÀûÀ¸·Î ÀÛÀº ¸ðµ¨À» ºÙÀÌ´Â ¸ð¾çÀ¸·Î ¸¸µé ¼ö ÀÖ°í, Ãß°¡ÀûÀÎ Overheadµµ °ÅÀÇ ¾øÀÌ Faster R-CNNÀÇ 5fps´ë ¼Óµµ¿Í ¼º´ÉÀ» À¯ÁöÇÑ´Ù°í ÇÕ´Ï´Ù. ¶Ç Mask R-CNNÀ» ÀÌ¿ëÇÏ¸é, SegmentationÀÌ ¼öÇàµÇ´Â Æ¯Â¡À» ÀÀ¿ëÇØ¼­ »ç¶÷ÀÇ ½ÅÃ¼ Æ÷Áî¸¦ Àâ¾Æ³»´Â µîÀÇ ´Ù¾çÇÑ È°¿ëÀÌ °¡´ÉÇÏ´Ù°í ÇÕ´Ï´Ù. ¶Ç ÀÌ ¸ðµ¨Àº, COCOÀÇ ¸ðµç Task (Instance Segmentation, Bounding-Box Object Detection, Person Keypoint Detection)¿¡¼­ ÃÖ°íÀÇ °á°ú¸¦ º¸¿©ÁÖ¾ú½À´Ï´Ù.
+ì´ ë…¼ë¬¸ì˜ ëª©ì ì€ Object Instance Segmentationì„ ìœ„í•œ ê°„ë‹¨í•˜ê³  ìœ ì—°í•œ í”„ë ˆìž„ì›Œí¬ë¥¼ ë§Œë“œëŠ” ê²ƒì´ì—ˆë‹¤ê³  í•©ë‹ˆë‹¤. Instance Segmentaionì€ ìž…ë ¥ ì´ë¯¸ì§€ ë‚´ì—ì„œ ê° Objectë¥¼ ì°¾ì•„ëƒ„ê³¼ ë™ì‹œì— ë†’ì€ í€„ë¦¬í‹°ì˜ Segmentation Maskë¥¼ ì”Œì›Œì£¼ëŠ” ìž‘ì—…ì„ ì˜ë¯¸í•©ë‹ˆë‹¤. ì´ê²ƒì˜ êµ¬í˜„ì„ ìœ„í•´ì„œ, Faster R-CNNì— ì›ëž˜ ìžˆë˜ Bounding Box Regressorì™€ ë³‘ë ¬ì ìœ¼ë¡œ ëŒì•„ê°€ëŠ” Object Mask Predictorë¥¼ ë¶™ì´ê² ë‹¤ëŠ” ì•„ì´ë””ì–´ë¥¼ ë– ì˜¬ë ¸ìŠµë‹ˆë‹¤. ê·¸ë¦¬ê³  ë…¼ë¬¸ì˜ êµ¬í˜„ì— ë”°ë¥´ë©´, ì´ ëª¨ë¸ì€ Faster R-CNNì— ê°€ë³ê²Œ ì¶”ê°€ì ìœ¼ë¡œ ìž‘ì€ ëª¨ë¸ì„ ë¶™ì´ëŠ” ëª¨ì–‘ìœ¼ë¡œ ë§Œë“¤ ìˆ˜ ìžˆê³ , ì¶”ê°€ì ì¸ Overheadë„ ê±°ì˜ ì—†ì´ Faster R-CNNì˜ 5fpsëŒ€ ì†ë„ì™€ ì„±ëŠ¥ì„ ìœ ì§€í•œë‹¤ê³  í•©ë‹ˆë‹¤. ë˜ Mask R-CNNì„ ì´ìš©í•˜ë©´, Segmentationì´ ìˆ˜í–‰ë˜ëŠ” íŠ¹ì§•ì„ ì‘ìš©í•´ì„œ ì‚¬ëžŒì˜ ì‹ ì²´ í¬ì¦ˆë¥¼ ìž¡ì•„ë‚´ëŠ” ë“±ì˜ ë‹¤ì–‘í•œ í™œìš©ì´ ê°€ëŠ¥í•˜ë‹¤ê³  í•©ë‹ˆë‹¤. ë˜ ì´ ëª¨ë¸ì€, COCOì˜ ëª¨ë“  Task (Instance Segmentation, Bounding-Box Object Detection, Person Keypoint Detection)ì—ì„œ ìµœê³ ì˜ ê²°ê³¼ë¥¼ ë³´ì—¬ì£¼ì—ˆìŠµë‹ˆë‹¤.
 
-#### Mask R-CNN
-Mask R-CNNÀÇ ³×Æ®¿öÅ© ±¸Á¶´Â °£´ÜÇÕ´Ï´Ù. ±âÁ¸ Faster R-CNN ¸ðµ¨¿¡¼­, °¢ RoI¿¡ ´ëÇØ Segmentation Mask¸¦ ÃßÃøÇÏ´Â ³×Æ®¿öÅ© ±¸Á¶(branch)¸¦ Bounding Box¸¦ ¿¹ÃøÇÏ´Â ±¸Á¶¿Í º´·ÄÀûÀ¸·Î µ¿½Ã¿¡ µ¹¾Æ°¡µµ·Ï Ãß°¡ÇÑ °ÍÀÔ´Ï´Ù. ¿©±â¼­ Mask branch´Â ÀÛÀº FCN(Fully Convolutional Network) ³×Æ®¿öÅ©·Î, ÇÈ¼¿ ´ÜÀ§·Î SegmentationÀ» ¼öÇàÇÕ´Ï´Ù.
+### Mask R-CNN
+Mask R-CNNì˜ ë„¤íŠ¸ì›Œí¬ êµ¬ì¡°ëŠ” ê°„ë‹¨í•©ë‹ˆë‹¤. ê¸°ì¡´ Faster R-CNN ëª¨ë¸ì—ì„œ, ê° RoIì— ëŒ€í•´ Segmentation Maskë¥¼ ì¶”ì¸¡í•˜ëŠ” ë„¤íŠ¸ì›Œí¬ êµ¬ì¡°(branch)ë¥¼ Bounding Boxë¥¼ ì˜ˆì¸¡í•˜ëŠ” êµ¬ì¡°ì™€ ë³‘ë ¬ì ìœ¼ë¡œ ë™ì‹œì— ëŒì•„ê°€ë„ë¡ ì¶”ê°€í•œ ê²ƒìž…ë‹ˆë‹¤. ì—¬ê¸°ì„œ Mask branchëŠ” ìž‘ì€ FCN(Fully Convolutional Network) ë„¤íŠ¸ì›Œí¬ë¡œ, í”½ì…€ ë‹¨ìœ„ë¡œ Segmentationì„ ìˆ˜í–‰í•©ë‹ˆë‹¤.
 
-Faster R-CNNÀÇ ±¸Á¶°¡ È®ÀåÀÌ ¿ëÀÌÇÏµµ·Ï À¯¿¬ÇÏ°Ô ±¸¼ºµÇ¾î ÀÖ±â ¶§¹®¿¡, º°´Ù¸¥ Computational CostÀÇ Áõ°¡ ¾øÀÌ ¸ðµ¨À» ±¸ÇöÇÒ ¼ö ÀÖ¾ú´Ù°í ÇÕ´Ï´Ù. ÇÏÁö¸¸ ±âÁ¸ ¸ðµ¨¿¡¼­ Ãß°¡ÀûÀ¸·Î MaskingÀ» ±¸ÇöÇÏ´Ù º¸´Ï ¹®Á¦µµ ÀÖ¾ú½À´Ï´Ù. Faster R-CNNÀº ³×Æ®¿öÅ©ÀÇ Input°ú Output°£¿¡ ÇÈ¼¿ ´ÜÀ§ÀÇ Á¶Á¤ÀÌ ÇÊ¿ä ¾ø¾ú½À´Ï´Ù. Bounding Box¸¦ Ã£°í ClassificationÀ» ÇÏ¸é ±×¸¸ÀÌ¾ú±â ¶§¹®ÀÔ´Ï´Ù. RoI PoolingÀÇ ¹æ¹ý¸¸ ºÁµµ ±×·¯ÇÑµ¥, ÀÌ´Â Æ¯Â¡À» ÃßÃâÇÏ´Â °úÁ¤¿¡¼­ ¾çÀÚÈ­(quantization)À» ÀÏÀ¸Åµ´Ï´Ù. ±×·¡¼­ ¾çÀÚÈ­¸¦ ¹æÁöÇÒ ¼ö ÀÖ´Â ¹æ¹ýÀÎ RoiAlignÀ» °í¾ÈÇØ¼­ Àû¿ëÇÏ¿´´Ù°í ÇÕ´Ï´Ù.
+Faster R-CNNì˜ êµ¬ì¡°ê°€ í™•ìž¥ì´ ìš©ì´í•˜ë„ë¡ ìœ ì—°í•˜ê²Œ êµ¬ì„±ë˜ì–´ ìžˆê¸° ë•Œë¬¸ì—, ë³„ë‹¤ë¥¸ Computational Costì˜ ì¦ê°€ ì—†ì´ ëª¨ë¸ì„ êµ¬í˜„í•  ìˆ˜ ìžˆì—ˆë‹¤ê³  í•©ë‹ˆë‹¤. í•˜ì§€ë§Œ ê¸°ì¡´ ëª¨ë¸ì—ì„œ ì¶”ê°€ì ìœ¼ë¡œ Maskingì„ êµ¬í˜„í•˜ë‹¤ ë³´ë‹ˆ ë¬¸ì œë„ ìžˆì—ˆìŠµë‹ˆë‹¤. Faster R-CNNì€ ë„¤íŠ¸ì›Œí¬ì˜ Inputê³¼ Outputê°„ì— í”½ì…€ ë‹¨ìœ„ì˜ ì¡°ì •ì´ í•„ìš” ì—†ì—ˆìŠµë‹ˆë‹¤. Bounding Boxë¥¼ ì°¾ê³  Classificationì„ í•˜ë©´ ê·¸ë§Œì´ì—ˆê¸° ë•Œë¬¸ìž…ë‹ˆë‹¤. RoI Poolingì˜ ë°©ë²•ë§Œ ë´ë„ ê·¸ëŸ¬í•œë°, ì´ëŠ” íŠ¹ì§•ì„ ì¶”ì¶œí•˜ëŠ” ê³¼ì •ì—ì„œ ì–‘ìží™”(quantization)ì„ ì¼ìœ¼í‚µë‹ˆë‹¤. ê·¸ëž˜ì„œ ì–‘ìží™”ë¥¼ ë°©ì§€í•  ìˆ˜ ìžˆëŠ” ë°©ë²•ì¸ __RoiAlign__ ì„ ê³ ì•ˆí•´ì„œ ì ìš©í•˜ì˜€ë‹¤ê³  í•©ë‹ˆë‹¤.
 
-¿©±â¼­ RoIAlign¿¡ ´ëÇØ ¾Ë¾Æº¸°í °¡°Ú½À´Ï´Ù.
+ì—¬ê¸°ì„œ __RoIAlign__ ì— ëŒ€í•´ ì•Œì•„ë³´ê³  ê°€ê² ìŠµë‹ˆë‹¤.
 
-±âÁ¸ Faster R-CNN¿¡¼­ RoI poolingÀº °¢ RoI¿¡¼­ 7 x 7°ú °°Àº ÀÛÀº Å©±âÀÇ Feature MapÀ» ÃßÃâÇÏ±â À§ÇØ »ç¿ëµË´Ï´Ù. Backbone Network¸¦ °ÅÄ¡¸é¼­ ÀÔ·Â ÀÌ¹ÌÁö¿¡ ´ëÇÑ Feature MapÀÇ »çÀÌÁîµµ ÁÙ¾îµé¾ú±â ¶§¹®¿¡, RoIÀÇ Å©±â´Â º¸Åë ¼Ò¼ýÁ¡ÀÌ ºÙÀº Floating Number°¡ µÇ¾î ÀÖ½À´Ï´Ù. ±×°É Á¤¼öÈ­ÇØ¼­ RoI¸¦ ´Ù½Ã ¸¸µå´Â °úÁ¤¿¡¼­ quantizationÀÌ ÀÏ¾î³ª°Ô µË´Ï´Ù. ½Ç¼ö¸¦ Á¤¼ö·Î ¹Ù²Ù´Â °úÁ¤¿¡¼­ ÇÈ¼¿ ´ÜÀ§ÀÇ Á¤È®ÇÑ Á¤º¸°¡ ¹«½ÃµÇ´Â°Ì´Ï´Ù. ±× RoI´Â ¶Ç ¿©·¯ °³ÀÇ binÀ¸·Î ³ª´©¾îÁ®¼­ Max Pooling µîÀÇ ¹æ¹ýÀ¸·Î °ªµéÀ» ¸ðÀ¸´Âµ¥, ÀÌ °úÁ¤¿¡¼­ quantizationÀÌ ¶Ç ÇÑ¹ø ±¸ÇöµË´Ï´Ù. ¿¹¸¦ µé¾î 20 x 20 Å©±âÀÇ RoI¿¡¼­ 7 x 7 Å©±âÀÇ Feature MapÀ» »ý¼ºÇÏ·Á°í ÇÏ¸é, 20 / 7 = ¾à 2.86À¸·Î °ªÀÌ µü ¶³¾îÁöÁö ¾Ê±â ¶§¹®¿¡ ¾îÂ¿ ¼ö ¾øÀÌ ¸î¸î ÇÈ¼¿µéÀÌ ÁÖº¯ ÇÈ¼¿µé°ú º´ÇÕµÇ´Â ÀÏÀÌ ¹ß»ýÇÏ°Ô µË´Ï´Ù.
+ê¸°ì¡´ Faster R-CNNì—ì„œ RoI poolingì€ ê° RoIì—ì„œ 7 x 7ê³¼ ê°™ì€ ìž‘ì€ í¬ê¸°ì˜ Feature Mapì„ ì¶”ì¶œí•˜ê¸° ìœ„í•´ ì‚¬ìš©ë©ë‹ˆë‹¤. Backbone Networkë¥¼ ê±°ì¹˜ë©´ì„œ ìž…ë ¥ ì´ë¯¸ì§€ì— ëŒ€í•œ Feature Mapì˜ ì‚¬ì´ì¦ˆë„ ì¤„ì–´ë“¤ì—ˆê¸° ë•Œë¬¸ì—, RoIì˜ í¬ê¸°ëŠ” ë³´í†µ ì†Œìˆ«ì ì´ ë¶™ì€ Floating Numberê°€ ë˜ì–´ ìžˆìŠµë‹ˆë‹¤. ê·¸ê±¸ ì •ìˆ˜í™”í•´ì„œ RoIë¥¼ ë‹¤ì‹œ ë§Œë“œëŠ” ê³¼ì •ì—ì„œ quantizationì´ ì¼ì–´ë‚˜ê²Œ ë©ë‹ˆë‹¤. ì‹¤ìˆ˜ë¥¼ ì •ìˆ˜ë¡œ ë°”ê¾¸ëŠ” ê³¼ì •ì—ì„œ í”½ì…€ ë‹¨ìœ„ì˜ ì •í™•í•œ ì •ë³´ê°€ ë¬´ì‹œë˜ëŠ”ê²ë‹ˆë‹¤. ê·¸ RoIëŠ” ë˜ ì—¬ëŸ¬ ê°œì˜ binìœ¼ë¡œ ë‚˜ëˆ„ì–´ì ¸ì„œ Max Pooling ë“±ì˜ ë°©ë²•ìœ¼ë¡œ ê°’ë“¤ì„ ëª¨ìœ¼ëŠ”ë°, ì´ ê³¼ì •ì—ì„œ quantizationì´ ë˜ í•œë²ˆ êµ¬í˜„ë©ë‹ˆë‹¤. ì˜ˆë¥¼ ë“¤ì–´ 20 x 20 í¬ê¸°ì˜ RoIì—ì„œ 7 x 7 í¬ê¸°ì˜ Feature Mapì„ ìƒì„±í•˜ë ¤ê³  í•˜ë©´, 20 / 7 = ì•½ 2.86ìœ¼ë¡œ ê°’ì´ ë”± ë–¨ì–´ì§€ì§€ ì•Šê¸° ë•Œë¬¸ì— ì–´ì©” ìˆ˜ ì—†ì´ ëª‡ëª‡ í”½ì…€ë“¤ì´ ì£¼ë³€ í”½ì…€ë“¤ê³¼ ë³‘í•©ë˜ëŠ” ì¼ì´ ë°œìƒí•˜ê²Œ ë©ë‹ˆë‹¤.
 
-¿¹¸¦ µé¾î, ÀÔ·Â ÀÌ¹ÌÁö¿¡¼­ Æ¯Á¤ ÇÈ¼¿ÀÇ À§Ä¡°¡ ![](https://latex.codecogs.com/gif.latex?x)¿´°í Feature mapÀÇ Stride°¡ 16, Áï Å©±â°¡ ÀÔ·Â ÀÌ¹ÌÁöÀÇ 1/16À¸·Î ÁÙ¾îµé¾ú´Ù¸é, RoI Pooling¿¡¼­´Â ![](https://latex.codecogs.com/gif.latex?%5Bx/16%5D)À¸·Î °è»êÇß¾ú½À´Ï´Ù. ![](https://latex.codecogs.com/gif.latex?%5Bn%5D)Àº ![](https://latex.codecogs.com/gif.latex?n)ÀÇ ¹Ý¿Ã¸²À» ÀÇ¹ÌÇÕ´Ï´Ù.
-ÀÌ·± quantizationÀº RoI¿Í ÃßÃâµÈ Feature »çÀÌ°¡ ¸ÂÁö ¾Ê°Ô(misalignment) ¸¸µì´Ï´Ù. Á¶±×¸¶ÇÑ °ø°£Àû º¯È­¿¡ °­°ÇÇÑ(robust) ºÐ·ù ¹®Á¦¿¡´Â Å©°Ô »ó°üÀÌ ¾ø¾úÁö¸¸, ÇÈ¼¿ ´ÜÀ§·Î Mask¸¦ ¿¹ÃøÇÏ´Â °úÁ¤¿¡¼­´Â Å« ¹®Á¦¸¦ ºÒ·¯¿Ô½À´Ï´Ù.
+ì˜ˆë¥¼ ë“¤ì–´, ìž…ë ¥ ì´ë¯¸ì§€ì—ì„œ íŠ¹ì • í”½ì…€ì˜ ìœ„ì¹˜ê°€ ![](https://latex.codecogs.com/gif.latex?x)ì˜€ê³  Feature mapì˜ Strideê°€ 16, ì¦‰ í¬ê¸°ê°€ ìž…ë ¥ ì´ë¯¸ì§€ì˜ 1/16ìœ¼ë¡œ ì¤„ì–´ë“¤ì—ˆë‹¤ë©´, RoI Poolingì—ì„œëŠ” ![](https://latex.codecogs.com/gif.latex?%5Bx/16%5D)ìœ¼ë¡œ ê³„ì‚°í–ˆì—ˆìŠµë‹ˆë‹¤. ![](https://latex.codecogs.com/gif.latex?%5Bn%5D)ì€ ![](https://latex.codecogs.com/gif.latex?n)ì˜ ë°˜ì˜¬ë¦¼ì„ ì˜ë¯¸í•©ë‹ˆë‹¤.
+ì´ëŸ° quantizationì€ RoIì™€ ì¶”ì¶œëœ Feature ì‚¬ì´ê°€ ë§žì§€ ì•Šê²Œ(misalignment) ë§Œë“­ë‹ˆë‹¤. ì¡°ê·¸ë§ˆí•œ ê³µê°„ì  ë³€í™”ì— ê°•ê±´í•œ(robust) ë¶„ë¥˜ ë¬¸ì œì—ëŠ” í¬ê²Œ ìƒê´€ì´ ì—†ì—ˆì§€ë§Œ, í”½ì…€ ë‹¨ìœ„ë¡œ Maskë¥¼ ì˜ˆì¸¡í•˜ëŠ” ê³¼ì •ì—ì„œëŠ” í° ë¬¸ì œë¥¼ ë¶ˆëŸ¬ì™”ìŠµë‹ˆë‹¤.
 
-¾Æ·¡ÀÇ »çÁøÀ» º¾½Ã´Ù. ¾Æ·¡ÀÇ µÎ »çÁøÀº Youtube - Ardian Umam ´ÔÀÇ °­ÀÇ¿¡¼­ °¡Á®¿Ô½À´Ï´Ù. [°­ÀÇ ¿µ»ó Youtube ¸µÅ©](https://www.youtube.com/watch?v=XGi-Mz3do2s)
+ì•„ëž˜ì˜ ì‚¬ì§„ì„ ë´…ì‹œë‹¤. ì•„ëž˜ì˜ ë‘ ì‚¬ì§„ì€ Youtube - Ardian Umam ë‹˜ì˜ ê°•ì˜ì—ì„œ ê°€ì ¸ì™”ìŠµë‹ˆë‹¤. [ê°•ì˜ ì˜ìƒ Youtube ë§í¬](https://www.youtube.com/watch?v=XGi-Mz3do2s)
 
-![](../images/MaskRCNN/RoIPooling.png)
+![](../images/MaskRCNN/RoIPooling.PNG)
 
-800 x 800 Å©±âÀÇ ÀÔ·Â ÀÌ¹ÌÁö´Â Backbone NetworkÀÎ VGG¸¦ °ÅÄ¡¸é¼­ Stride 32ÀÇ Feature Map Ãâ·ÂÀ» ³»³õ½À´Ï´Ù. ±× °úÁ¤¿¡¼­ Ã³À½¿¡ 665 x 665 Å©±â¸¦ °¡Áö°í ÀÖ´ø RoI°¡ (665/32) x (665/32) Å©±â¸¦ °¡Áö°Ô µÇ¾ú´Âµ¥, RoIÀÇ Å©±â´Â ½Ç¼öÀÏ ¼ö ¾øÀ¸¹Ç·Î ¹Ý¿Ã¸²À» ÇØ¼­ 20À¸·Î Å©±â¸¦ ¸ÂÃß´Â ¸ð½ÀÀÌ º¸ÀÔ´Ï´Ù. ¶Ç ÀÌ·¸°Ô ¸¸µé¾îÁø 20 x 20 Å©±âÀÇ RoI¸¦ 7 x 7ÀÇ Feature MapÀ¸·Î ¸¸µå´Â °úÁ¤¿¡¼­ °¢ bin¸¶´Ù µé¾îÀÖ´Â ÇÈ¼¿ÀÇ °³¼ö°¡ ´Þ¶óÁö°Ô µÇ°í, °á·ÐÀûÀ¸·Î ¸ðµç ÇÈ¼¿ÀÇ Á¤º¸¸¦ µ¿ÀÏÇÏ°Ô °¡Áö°í ÀÖÀ» ¼ö ¾ø°Ô µË´Ï´Ù. ÀÌ¸¦ quantization ‰ç´Ù°í ºÎ¸£´Â °ÍÀÔ´Ï´Ù.
+800 x 800 í¬ê¸°ì˜ ìž…ë ¥ ì´ë¯¸ì§€ëŠ” Backbone Networkì¸ VGGë¥¼ ê±°ì¹˜ë©´ì„œ Stride 32ì˜ Feature Map ì¶œë ¥ì„ ë‚´ë†“ìŠµë‹ˆë‹¤. ê·¸ ê³¼ì •ì—ì„œ ì²˜ìŒì— 665 x 665 í¬ê¸°ë¥¼ ê°€ì§€ê³  ìžˆë˜ RoIê°€ (665/32) x (665/32) í¬ê¸°ë¥¼ ê°€ì§€ê²Œ ë˜ì—ˆëŠ”ë°, RoIì˜ í¬ê¸°ëŠ” ì‹¤ìˆ˜ì¼ ìˆ˜ ì—†ìœ¼ë¯€ë¡œ ë°˜ì˜¬ë¦¼ì„ í•´ì„œ 20ìœ¼ë¡œ í¬ê¸°ë¥¼ ë§žì¶”ëŠ” ëª¨ìŠµì´ ë³´ìž…ë‹ˆë‹¤. ë˜ ì´ë ‡ê²Œ ë§Œë“¤ì–´ì§„ 20 x 20 í¬ê¸°ì˜ RoIë¥¼ 7 x 7ì˜ Feature Mapìœ¼ë¡œ ë§Œë“œëŠ” ê³¼ì •ì—ì„œ ê° binë§ˆë‹¤ ë“¤ì–´ìžˆëŠ” í”½ì…€ì˜ ê°œìˆ˜ê°€ ë‹¬ë¼ì§€ê²Œ ë˜ê³ , ê²°ë¡ ì ìœ¼ë¡œ ëª¨ë“  í”½ì…€ì˜ ì •ë³´ë¥¼ ë™ì¼í•˜ê²Œ ê°€ì§€ê³  ìžˆì„ ìˆ˜ ì—†ê²Œ ë©ë‹ˆë‹¤. ì´ë¥¼ quantization Â‰æ¦®é³´ ë¶€ë¥´ëŠ” ê²ƒìž…ë‹ˆë‹¤.
 
-RoIAlignÀº ¹Ý¿Ã¸² µîÀ¸·Î °­Á¦·Î Á¤¼ö°³ÀÇ ÇÈ¼¿À» ¸¸µéÁö ¾Ê°í, bin ³»ÀÇ ÇÈ¼¿ °³¼ö¸¦ ½Ç¼ö°³·Î ³öµÓ´Ï´Ù. ±×³É RoI PoolingÀº bin ³»ÀÇ ÇÈ¼¿ÀÌ Á¤¼ö°³¿´±â ¶§¹®¿¡ ±×³É Max PoolingÀÌ °¡´ÉÇßÁö¸¸ RoIAlignÀº ±×·¸Áö ¾ÊÀ¸¹Ç·Î, °¢ bin ³»¿¡¼­ ÀÏÁ¤ÇÏ°Ô 4°³ÀÇ Á¡µéÀ» »Ì¾Æ³»°í ±× »çÀÌÀÇ Á¤È®ÇÑ Input Feature¿¡¼­ÀÇ °ªÀ» Bilinear InterpolationÀ¸·Î ±¸ÇÏ´Â ÀÛ¾÷À» °ÅÄ¡°Ô µË´Ï´Ù. ÀÌ·¸°Ô ÇÏ¸é bin ³» ÇÈ¼¿ÀÇ °³¼ö°¡ Á¤¼ö°³°¡ ¾Æ´Ï´õ¶óµµ, Á¤¼ö°³Ã³·³ PoolingÀ» ÇÒ ¼ö ÀÖ°Ô µË´Ï´Ù.
+RoIAlignì€ ë°˜ì˜¬ë¦¼ ë“±ìœ¼ë¡œ ê°•ì œë¡œ ì •ìˆ˜ê°œì˜ í”½ì…€ì„ ë§Œë“¤ì§€ ì•Šê³ , bin ë‚´ì˜ í”½ì…€ ê°œìˆ˜ë¥¼ ì‹¤ìˆ˜ê°œë¡œ ë†”ë‘¡ë‹ˆë‹¤. ê·¸ëƒ¥ RoI Poolingì€ bin ë‚´ì˜ í”½ì…€ì´ ì •ìˆ˜ê°œì˜€ê¸° ë•Œë¬¸ì— ê·¸ëƒ¥ Max Poolingì´ ê°€ëŠ¥í–ˆì§€ë§Œ RoIAlignì€ ê·¸ë ‡ì§€ ì•Šìœ¼ë¯€ë¡œ, ê° bin ë‚´ì—ì„œ ì¼ì •í•˜ê²Œ 4ê°œì˜ ì ë“¤ì„ ë½‘ì•„ë‚´ê³  ê·¸ ì‚¬ì´ì˜ ì •í™•í•œ Input Featureì—ì„œì˜ ê°’ì„ Bilinear Interpolationìœ¼ë¡œ êµ¬í•˜ëŠ” ìž‘ì—…ì„ ê±°ì¹˜ê²Œ ë©ë‹ˆë‹¤. ì´ë ‡ê²Œ í•˜ë©´ bin ë‚´ í”½ì…€ì˜ ê°œìˆ˜ê°€ ì •ìˆ˜ê°œê°€ ì•„ë‹ˆë”ë¼ë„, ì •ìˆ˜ê°œì²˜ëŸ¼ Poolingì„ í•  ìˆ˜ ìžˆê²Œ ë©ë‹ˆë‹¤.
 
-![](../images/MaskRCNN/RoIAlign.png)
+![](../images/MaskRCNN/RoIAlign.PNG)
 
-À§ÀÇ »çÁøÀº ¾Æ±î¿Í °°Àº ½½¶óÀÌµå¿¡¼­ °¡Á®¿Â »çÁøÀÔ´Ï´Ù. RoI Pooling¿¡¼­ °­Á¦·Î ¼ýÀÚµéÀ» ¸ðµÎ Á¤¼ö·Î ¸ÂÃçÁÖ´Â °Í°ú ´Þ¸®, ¿©±â¼­´Â °ªÀ» ½Ç¼ö·Î °è¼Ó À¯ÁöÇÏ°í ÀÖ½À´Ï´Ù. ¹®Á¦°¡ µÇ´Â Pooling ºÎºÐÀº ¸ðµç binÀÌ °°Àº °¹¼öÀÇ value¸¦ °¡Áö°í ¿¬»êÇÒ ¼ö ÀÖµµ·Ï Bilinear InterpolationÀ¸·Î FeatureÀÇ value¸¦ ±¸ÇÏ¸é¼­ ¸ðµç ÇÈ¼¿ÀÇ À§Ä¡Àû Á¤º¸°¡ ÃÖ´ëÇÑ À¯ÁöµÇµµ·Ï ÇÏ°í ÀÖ½À´Ï´Ù.
+ìœ„ì˜ ì‚¬ì§„ì€ ì•„ê¹Œì™€ ê°™ì€ ìŠ¬ë¼ì´ë“œì—ì„œ ê°€ì ¸ì˜¨ ì‚¬ì§„ìž…ë‹ˆë‹¤. RoI Poolingì—ì„œ ê°•ì œë¡œ ìˆ«ìžë“¤ì„ ëª¨ë‘ ì •ìˆ˜ë¡œ ë§žì¶°ì£¼ëŠ” ê²ƒê³¼ ë‹¬ë¦¬, ì—¬ê¸°ì„œëŠ” ê°’ì„ ì‹¤ìˆ˜ë¡œ ê³„ì† ìœ ì§€í•˜ê³  ìžˆìŠµë‹ˆë‹¤. ë¬¸ì œê°€ ë˜ëŠ” Pooling ë¶€ë¶„ì€ ëª¨ë“  binì´ ê°™ì€ ê°¯ìˆ˜ì˜ valueë¥¼ ê°€ì§€ê³  ì—°ì‚°í•  ìˆ˜ ìžˆë„ë¡ Bilinear Interpolationìœ¼ë¡œ Featureì˜ valueë¥¼ êµ¬í•˜ë©´ì„œ ëª¨ë“  í”½ì…€ì˜ ìœ„ì¹˜ì  ì •ë³´ê°€ ìµœëŒ€í•œ ìœ ì§€ë˜ë„ë¡ í•˜ê³  ìžˆìŠµë‹ˆë‹¤.
 
-ÀÌÁ¦ ´Ù½Ã ¸ðµ¨ÀÇ ±¸Á¶·Î µ¹¾Æ¿À°Ú½À´Ï´Ù. 
+ì´ì œ ë‹¤ì‹œ ëª¨ë¸ì˜ êµ¬ì¡°ë¡œ ëŒì•„ì˜¤ê² ìŠµë‹ˆë‹¤. 
 
-FCNÀÌ ÇÈ¼¿ ´ÜÀ§·Î Segmentation°ú ClassificationÀ» µ¿½Ã¿¡ ¼öÇàÇÏ´Â °Í°ú ´Þ¸®, Mask R-CNNÀº ¸¶½ºÅ© ¿¹Ãø°ú Å¬·¡½º ¿¹ÃøÀ» ºÐ¸®Çß½À´Ï´Ù. °¢ Å¬·¡½º¿¡ ´ëÇØ¼­ µ¶¸³ÀûÀ¸·Î Binary Mask¸¦ »ý¼ºÇÏ°Ô µË´Ï´Ù. FCNÀ» »ç¿ëÇØ ![](https://latex.codecogs.com/gif.latex?K)°³ÀÇ ¸¶½ºÅ©¸¦ °¢ RoI¸¶´Ù »Ì¾Æ³À´Ï´Ù. ![](https://latex.codecogs.com/gif.latex?K)°³ÀÇ ÀÌ¹ÌÁö Å¬·¡½º°¡ Á¸ÀçÇÒ ¶§, ![](https://latex.codecogs.com/gif.latex?m%20%5Ctimes%20m) ÇØ»óµµÀÇ Binary Mask¸¦ ![](https://latex.codecogs.com/gif.latex?K)°³ »ý¼ºÇÏ´Â Mask BranchÀÇ Ãâ·Â Â÷¿ø ¼ö´Â ![](https://latex.codecogs.com/gif.latex?Km%5E2) ÀÔ´Ï´Ù.
+FCNì´ í”½ì…€ ë‹¨ìœ„ë¡œ Segmentationê³¼ Classificationì„ ë™ì‹œì— ìˆ˜í–‰í•˜ëŠ” ê²ƒê³¼ ë‹¬ë¦¬, Mask R-CNNì€ ë§ˆìŠ¤í¬ ì˜ˆì¸¡ê³¼ í´ëž˜ìŠ¤ ì˜ˆì¸¡ì„ ë¶„ë¦¬í–ˆìŠµë‹ˆë‹¤. ê° í´ëž˜ìŠ¤ì— ëŒ€í•´ì„œ ë…ë¦½ì ìœ¼ë¡œ Binary Maskë¥¼ ìƒì„±í•˜ê²Œ ë©ë‹ˆë‹¤. FCNì„ ì‚¬ìš©í•´ ![](https://latex.codecogs.com/gif.latex?K)ê°œì˜ ë§ˆìŠ¤í¬ë¥¼ ê° RoIë§ˆë‹¤ ë½‘ì•„ëƒ…ë‹ˆë‹¤. ![](https://latex.codecogs.com/gif.latex?K)ê°œì˜ ì´ë¯¸ì§€ í´ëž˜ìŠ¤ê°€ ì¡´ìž¬í•  ë•Œ, ![](https://latex.codecogs.com/gif.latex?m%20%5Ctimes%20m) í•´ìƒë„ì˜ Binary Maskë¥¼ ![](https://latex.codecogs.com/gif.latex?K)ê°œ ìƒì„±í•˜ëŠ” Mask Branchì˜ ì¶œë ¥ ì°¨ì› ìˆ˜ëŠ” ![](https://latex.codecogs.com/gif.latex?Km%5E2) ìž…ë‹ˆë‹¤.
 
-¶Ç, °¢ RoI¿¡ ´ëÇØ¼­ Multi-task Loss¸¦ »ç¿ëÇÏ¿´½À´Ï´Ù. ½ÄÀº ¾Æ·¡¿Í °°½À´Ï´Ù.
+ë˜, ê° RoIì— ëŒ€í•´ì„œ Multi-task Lossë¥¼ ì‚¬ìš©í•˜ì˜€ìŠµë‹ˆë‹¤. ì‹ì€ ì•„ëž˜ì™€ ê°™ìŠµë‹ˆë‹¤.
 
 ![](https://latex.codecogs.com/gif.latex?L%20%3D%20L_%7Bcls%7D%20&plus;%20L_%7Bbox%7D%20&plus;%20L_%7Bmask%7D)
 
-Classification LossÀÎ ![](https://latex.codecogs.com/gif.latex?L_%7Bcls%7D)¿Í Bounding Box LossÀÎ ![](https://latex.codecogs.com/gif.latex?L_%7Bbox%7D)´Â Fast R-CNN¿¡¼­¿Í µ¿ÀÏÇÏ°Ô ±¸ÇöµË´Ï´Ù.
+Classification Lossì¸ ![](https://latex.codecogs.com/gif.latex?L_%7Bcls%7D)ì™€ Bounding Box Lossì¸ ![](https://latex.codecogs.com/gif.latex?L_%7Bbox%7D)ëŠ” Fast R-CNNì—ì„œì™€ ë™ì¼í•˜ê²Œ êµ¬í˜„ë©ë‹ˆë‹¤.
 
-ÇÈ¼¿´ÜÀ§ Sigmoid¸¦ Àû¿ëÇÏ±â À§ÇØ¼­, Mask Prediction LossÀÎ ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)´Â ÇÈ¼¿ ´ÜÀ§ Binary Cross-entropy LossÀÇ Æò±ÕÀ¸·Î ÀÌ·ç¾îÁý´Ï´Ù. ÇØ´ç RoIÀÇ Ground-truth Å¬·¡½º°¡ ![](https://latex.codecogs.com/gif.latex?k)¹øÂ° Å¬·¡½º¶ó¸é, ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)´Â ![](https://latex.codecogs.com/gif.latex?k)¹øÂ° ¸¶½ºÅ©¿¡¼­¸¸ Á¤ÀÇµÇ°í, ³ª¸ÓÁö ¸¶½ºÅ© Ãâ·ÂµéÀº Loss¿¡ ¿µÇâÀ» ¹ÌÄ¡Áö ¾Ê½À´Ï´Ù.
-![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)ÀÇ ÀÌ·± µðÀÚÀÎÀº Å¬·¡½º¿¡ »ó°ü¾øÀÌ ¸ðµç ¸¶½ºÅ©¸¦ »ý¼ºÇÒ ¼ö ÀÖ°Ô ¸¸µé¾îÁÝ´Ï´Ù. Classification Branch´Â Ãâ·Â ¸¶½ºÅ©¸¦ ¼±ÅÃÇÏ±â À§ÇØ Å¬·¡½º¸¦ ¿¹ÃøÇÏ´Â ¿ëµµ·Î »ç¿ëµË´Ï´Ù. Mask R-CNN¿¡¼­´Â ÀÌ·¸°Ô Mask¿Í ClassÀÇ PredictionÀ» ºÐ¸®Çß½À´Ï´Ù.
+í”½ì…€ë‹¨ìœ„ Sigmoidë¥¼ ì ìš©í•˜ê¸° ìœ„í•´ì„œ, Mask Prediction Lossì¸ ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)ëŠ” í”½ì…€ ë‹¨ìœ„ Binary Cross-entropy Lossì˜ í‰ê· ìœ¼ë¡œ ì´ë£¨ì–´ì§‘ë‹ˆë‹¤. í•´ë‹¹ RoIì˜ Ground-truth í´ëž˜ìŠ¤ê°€ ![](https://latex.codecogs.com/gif.latex?k)ë²ˆì§¸ í´ëž˜ìŠ¤ë¼ë©´, ![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)ëŠ” ![](https://latex.codecogs.com/gif.latex?k)ë²ˆì§¸ ë§ˆìŠ¤í¬ì—ì„œë§Œ ì •ì˜ë˜ê³ , ë‚˜ë¨¸ì§€ ë§ˆìŠ¤í¬ ì¶œë ¥ë“¤ì€ Lossì— ì˜í–¥ì„ ë¯¸ì¹˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
+![](https://latex.codecogs.com/gif.latex?L_%7Bmask%7D)ì˜ ì´ëŸ° ë””ìžì¸ì€ í´ëž˜ìŠ¤ì— ìƒê´€ì—†ì´ ëª¨ë“  ë§ˆìŠ¤í¬ë¥¼ ìƒì„±í•  ìˆ˜ ìžˆê²Œ ë§Œë“¤ì–´ì¤ë‹ˆë‹¤. Classification BranchëŠ” ì¶œë ¥ ë§ˆìŠ¤í¬ë¥¼ ì„ íƒí•˜ê¸° ìœ„í•´ í´ëž˜ìŠ¤ë¥¼ ì˜ˆì¸¡í•˜ëŠ” ìš©ë„ë¡œ ì‚¬ìš©ë©ë‹ˆë‹¤. Mask R-CNNì—ì„œëŠ” ì´ë ‡ê²Œ Maskì™€ Classì˜ Predictionì„ ë¶„ë¦¬í–ˆìŠµë‹ˆë‹¤.
 
-#### Model Structure / Training
-Backbone Network·Î´Â ResNet-FPNÀ» »ç¿ëÇÑ´Ù°í ÇÕ´Ï´Ù. ResNet ±¸Á¶¸¦ Åë°úÇÑ ÈÄ¿¡ Feature¸¦ FPN ±¸Á¶¿¡¼­ ÃßÃâÇÑ´Ù°í º¸¸é µÉ °Í °°½À´Ï´Ù. Mask R-CNNÀÇ ³×Æ®¿öÅ© ±¸Á¶¸¦ º¸¸é ¾Æ·¡¿Í °°ÀÌ, ±âÁ¸ Faster R-CNN¿¡¼­ Mask¸¦ PredictionÇÏ´Â Branch°¡ FCN ±¸Á¶·Î Ãß°¡µÇ¾î ÀÖ´Â ¸ð½ÀÀ» º¸½Ç ¼ö ÀÖ½À´Ï´Ù.
+### Model Structure / Training
+Backbone Networkë¡œëŠ” ResNet-FPNì„ ì‚¬ìš©í•œë‹¤ê³  í•©ë‹ˆë‹¤. ResNet êµ¬ì¡°ë¥¼ í†µê³¼í•œ í›„ì— Featureë¥¼ FPN êµ¬ì¡°ì—ì„œ ì¶”ì¶œí•œë‹¤ê³  ë³´ë©´ ë  ê²ƒ ê°™ìŠµë‹ˆë‹¤. Mask R-CNNì˜ ë„¤íŠ¸ì›Œí¬ êµ¬ì¡°ë¥¼ ë³´ë©´ ì•„ëž˜ì™€ ê°™ì´, ê¸°ì¡´ Faster R-CNNì—ì„œ Maskë¥¼ Predictioní•˜ëŠ” Branchê°€ FCN êµ¬ì¡°ë¡œ ì¶”ê°€ë˜ì–´ ìžˆëŠ” ëª¨ìŠµì„ ë³´ì‹¤ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
-![](../images/MaskRCNN/MaskrcnnStructure.png)
+![](../images/MaskRCNN/MaskrcnnStructure.PNG)
 
-MaskingÀÇ TargetÀº Ground-truth Mask¿Í RoI¿ÍÀÇ IntersectionÀÔ´Ï´Ù. Mask Branch´Â Àú°Í¿¡ ÀÚ½ÅÀÌ ¿¹ÃøÇÑ Mask¸¦ ¸ÂÃß±â À§ÇØ TrainingÇÕ´Ï´Ù.
+Maskingì˜ Targetì€ Ground-truth Maskì™€ RoIì™€ì˜ Intersectionìž…ë‹ˆë‹¤. Mask BranchëŠ” ì €ê²ƒì— ìžì‹ ì´ ì˜ˆì¸¡í•œ Maskë¥¼ ë§žì¶”ê¸° ìœ„í•´ Trainingí•©ë‹ˆë‹¤.
 
-#### Result
-¾Æ·¡´Â °á°úµé Áß Cityscape µ¥ÀÌÅÍ¼Â ³»ºÎ ÀÌ¹ÌÁöµé¿¡ ´ëÇØ¼­ PredictionÀ» ¼öÇàÇÑ °á°úÀÔ´Ï´Ù.
+### Result
+ì•„ëž˜ëŠ” ê²°ê³¼ë“¤ ì¤‘ Cityscape ë°ì´í„°ì…‹ ë‚´ë¶€ ì´ë¯¸ì§€ë“¤ì— ëŒ€í•´ì„œ Predictionì„ ìˆ˜í–‰í•œ ê²°ê³¼ìž…ë‹ˆë‹¤.
 
-![](../images/MaskRCNN/MaskrcnnResult.png)
+![](../images/MaskRCNN/MaskrcnnResult.PNG)
 
-FPN ±¸Á¶°¡ Backbone¿¡ µé¾î°¡ÀÖ´Â ´öºÐ¿¡ ¿©·¯ Å©±âÀÇ ¹°Ã¼¸¦ Àß °¨ÁöÇÏ°í, ¶Ç Maskingµµ Àß ÇÏ°í ÀÖ´Â ¸ð½ÀÀ» º¼ ¼ö ÀÖ½À´Ï´Ù.
+FPN êµ¬ì¡°ê°€ Backboneì— ë“¤ì–´ê°€ìžˆëŠ” ë•ë¶„ì— ì—¬ëŸ¬ í¬ê¸°ì˜ ë¬¼ì²´ë¥¼ ìž˜ ê°ì§€í•˜ê³ , ë˜ Maskingë„ ìž˜ í•˜ê³  ìžˆëŠ” ëª¨ìŠµì„ ë³¼ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.
 
-¾Æ·¡´Â COCO µ¥ÀÌÅÍ¼Â ³»ÀÇ ÀÌ¹ÌÁöµé¿¡ ´ëÇÑ °á°úÀÔ´Ï´Ù.
+ì•„ëž˜ëŠ” COCO ë°ì´í„°ì…‹ ë‚´ì˜ ì´ë¯¸ì§€ë“¤ì— ëŒ€í•œ ê²°ê³¼ìž…ë‹ˆë‹¤.
 
-![](../images/MaskRCNN/cocoresult.png)
+![](../images/MaskRCNN/cocoresult.PNG)
 
