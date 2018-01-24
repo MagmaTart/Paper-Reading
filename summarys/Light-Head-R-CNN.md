@@ -49,6 +49,8 @@
 
 ![](../images/LightHead/XcepBackbone.PNG)
 
+S는 Separable branch의 개수, Rep는 반복 횟수를 의미합니다. 이렇게 해도 생각보다는 깊어 보이는듯 합니다.
+
 RoI는 트레이닝 시에 2000개, 테스트 시에 1000개를 사용합니다. 또, Faster R-CNN이 그러듯이 R-CNN subnet에 들어가기 전에 NMS(Non-Maximum Suppression)으로 많은 수의 Anchor들을 삭제합니다.
 
 트레이닝 시에는 OHEM(Online Hard Example Mining)을 사용하였고, SGD와 Momentum Optimizer를 Syncronized하게 맞춰서 사용했다고 기술했습니다.
