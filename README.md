@@ -14,3 +14,5 @@ Read AWESOME PAPERS of deep learning!
 9. [Focal Loss for Dense Object Detection](./summarys/Focal-Loss-for-Dense-Object-Detection.md)
 10. [Mask R-CNN](./summarys/MaskRCNN.md)
 11. [Light-Head R-CNN](./summarys/Light-Head-R-CNN.md)
+12. [CycleGAN](./summarys/CycleGAN.md)
+13. [DTN](./summarys/UCDIG.md)
