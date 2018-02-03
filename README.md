@@ -16,3 +16,5 @@ Read AWESOME PAPERS of deep learning!
 11. [Light-Head R-CNN: In Defense of Two-Stage Object Detector (Light-Head R-CNN)](./summarys/Light-Head-R-CNN.md)
 12. [Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks (CycleGAN)](./summarys/CycleGAN.md)
 13. [Unsupervised Cross-Domain Image Generation (DTN, UCDIG)](./summarys/UCDIG.md)
+14. [Conditional Generative Adversarial Nets (CGAN)](./summarys/CGAN.md)
+15. [Learning from Simulated and Unsupervised Images through Adversarial Training (SimGAN)](./summarys/SimGAN.md)
