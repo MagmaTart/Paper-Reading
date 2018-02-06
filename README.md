@@ -18,3 +18,4 @@ Read AWESOME PAPERS of deep learning!
 13. [Unsupervised Cross-Domain Image Generation (DTN, UCDIG)](./summarys/UCDIG.md)
 14. [Conditional Generative Adversarial Nets (CGAN)](./summarys/CGAN.md)
 15. [Learning from Simulated and Unsupervised Images through Adversarial Training (SimGAN)](./summarys/SimGAN.md)
+16. [Energy-Based Generative Adversarial Networks (EBGAN)](./summarys/EBGAN.md)
