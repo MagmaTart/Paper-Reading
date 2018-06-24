@@ -19,4 +19,4 @@ Read AWESOME PAPERS of deep learning!
 14. [Conditional Generative Adversarial Nets (CGAN)](./summarys/CGAN.md)
 15. [Learning from Simulated and Unsupervised Images through Adversarial Training (SimGAN)](./summarys/SimGAN.md)
 16. [Energy-Based Generative Adversarial Networks (EBGAN)](./summarys/EBGAN.md)
-17. [Improved Techniques for Training GANs](./summarys/Improved-Techniques-for-Training-GANs)
+17. [Improved Techniques for Training GANs](./summarys/Improved-Techniques-for-Training-GANs.md)
