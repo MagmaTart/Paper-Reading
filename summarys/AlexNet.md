@@ -30,7 +30,7 @@ ImageNet 데이터셋은 이때까지의 데이터셋보다 비교적 고해상�
 #### Local Response Normalization
 __Lateral Inhibition__ 이라는 현상이 있습니다. 생물학적 뉴런들의 네트워크에서, 강한 자극을 받는 뉴런이 약한 자극을 받는 뉴런의 신호 전달을 억제하는 현상을 말합니다. 예를 들어 다음 그림을 보면,
 
-![](../images/AlexNet/Lateral.PNG)
+![](../images/AlexNet/Lateral.png)
 
 중간중간 흰 선의 교차점이 약간 검은 색으로 변해 보이는 것을 느낄 수 있습니다. 이것이 우리의 시각 세포끼리 Lateral Inhibition을 일으킨 결과입니다. 검은 색에 반응하는 뉴런들이 상대적으로 강한 자극을 받아, 약한 자극을 통해 뇌에 흰색을 인식시키는 뉴런들의 신호 전달을 억제했기 때문입니다.
 
@@ -38,7 +38,7 @@ __Lateral Inhibition__ 이라는 현상이 있습니다. 생물학적 뉴런들�
 
 논문의 수식이 아닌 그림으로 알아보겠습니다. 원리는 생각보다 간단합니다. 아래의 그림은 LRN의 과정을 묘사합니다.
 
-![](../images/AlexNet/LRN.PNG)
+![](../images/AlexNet/LRN.png)
 
 [출처](https://www.quora.com/What-is-local-response-normalization)
 
@@ -53,7 +53,7 @@ __Lateral Inhibition__ 이라는 현상이 있습니다. 생물학적 뉴런들�
 #### Overlapping Pooling
 이 기법은 말그대로 아래 사진과 같이 겹쳐서 풀링하는 방법입니다.
 
-![](../images/AlexNet/overlapping.PNG)
+![](../images/AlexNet/overlapping.png)
 
 Pooling을 Stride ![](https://latex.codecogs.com/gif.latex?s), Kernel size ![](https://latex.codecogs.com/gif.latex?%28z%20%5Ctimes%20z%29)로 수행할 때, ![](https://latex.codecogs.com/gif.latex?s%20%3D%20z)이면 일반 Pooling입니다. Overlapping Pooling은 ![](https://latex.codecogs.com/gif.latex?s%20%3C%20z)인 경우입니다. 논문에서는 ![](https://latex.codecogs.com/gif.latex?s%3D2%2C%20%5C%20z%3D3)을 적용하였고, ![](https://latex.codecogs.com/gif.latex?s%3D2%2C%20%5C%20z%3D2)일 때와 비교했을 때 Top-5와 Top-1 Error Rate가 각각 0.4%, 0.3% 감소했다고 합니다.
 
@@ -74,7 +74,7 @@ Overfitting을 줄이기 위한 대표적인 방법 중 하나는 이미지 데�
 
 첫번째 방법은, Patch의 추출과 Horizontal Reflection입니다. Patch의 추출은 256 x 256 크기 이미지에서 224 x 224 크기만 추출하여 사용하는 것이고, Horizontal Reflection은 말그대로 이미지를 수평으로 반전시키는 것입니다. 아래와 같이 말이죠.
 
-![](../images/AlexNet/augmentation.PNG)
+![](../images/AlexNet/augmentation.png)
 
 네트워크에 입력으로 들어갈 이미지에 대해서 총 5개의 Patch를 추출하고(좌상단, 우상단, 좌하단, 우하단, 중앙), 각각 Horizontal Reflection을 적용하여, 이미지 한 장을 아래와 같이 열 장으로 만들어냅니다. 이 10개를 모델에 입력한 후, 총 10개의 Softmax 출력을 평균내어 최종 예측 결과를 내놓게 됩니다.
 
