@@ -107,6 +107,9 @@ GAN은 특히, 모델의 성능을 객관적으로 평가하기 위한 Objective
  
  ### Experiments
  ![](../images/ImproveGAN/figure3.PNG)
- 왼쪽 : Semi-supervised Learning 적용, 오른쪽 : Minibatch Discrimination 적용
+
+ MNIST 생성 실험 결과입니다. 왼쪽은 Semi-supervised Learning만 적용한 결과이고, 오른쪽은 Minibatch Discrimination을 적용한 결과입니다.
+ 
  ![](../images/ImproveGAN/figure5.PNG)
- 왼쪽 : 일반 DCGAN, 오른쪽 : 이 논문의 여러 방법(Semi-supervised Learning, Feature Matching) 등을 활용한 결과
+ 
+ 이번엔 ImageNet 데이터셋입니다. 왼쪽은 일반 DCGAN이고, 오른쪽은 이 논문의 여러 방법(Semi-supervised Learning, Feature Matching) 등을 활용한 결과입니다.
