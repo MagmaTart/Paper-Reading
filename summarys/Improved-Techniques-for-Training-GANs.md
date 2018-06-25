@@ -42,7 +42,7 @@
  
  논문에서는 아래와 같은 그림으로 요약하고 있는데, 이렇게 봐도 이해하기 힘든 그림이긴 하지만, 이 이상으로는 그릴 수가 없어서 그대로 올려놓겠습니다.
  
- ![](../images/ImproveGAN/figure1.png)
+ ![](../images/ImproveGAN/figure1.PNG)
  
  논문에서는 이런 Minibatch단위 계산을 Generator가 생성한 Sample과 실제 데이터에 대해 따로 수행하고 있습니다. 이전에는 Discriminator가 하나의 샘플만을 보고 진짜와 가짜를 구별해야 했다면, Minibatch Discrimination을 통해 구분을 위한 __Side Information__ 을 제공할 수 있게 되었다고 논문에서는 주장합니다.
  
@@ -106,7 +106,7 @@ GAN은 특히, 모델의 성능을 객관적으로 평가하기 위한 Objective
  Semi-supervised Learning을 도입하면, 모델의 성능 평가를 인간의 판단으로 진행헀을 때에, Generator의 이미지 생성 품질이 향상되는 놀라운 효과도 거둘 수 있었습니다. 논문에서는, 사람의 시각 시스템이 어떤 물체를 분류할 때, 물체의 특징을 파악할 수 있는 이미지의 일부에 강하게 반응하는 것과 같은 맥락이라고 설명합니다. Discriminator가 이미지의 클래스를 분류하도록 학습함으로써, 인간의 시각 시스템이 강조해서 보는 이미지의 특징을 Generator가 개발하도록 만들어준다는 것입니다.
  
  ### Experiments
- ![](../images/ImproveGAN/figure3.png)
+ ![](../images/ImproveGAN/figure3.PNG)
  왼쪽 : Semi-supervised Learning 적용, 오른쪽 : Minibatch Discrimination 적용
- ![](../images/ImproveGAN/figure5.png)
+ ![](../images/ImproveGAN/figure5.PNG)
  왼쪽 : 일반 DCGAN, 오른쪽 : 이 논문의 여러 방법(Semi-supervised Learning, Feature Matching) 등을 활용한 결과
