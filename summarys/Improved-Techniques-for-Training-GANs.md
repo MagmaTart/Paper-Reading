@@ -1,5 +1,7 @@
 # Improved Techniques for Training GANs
 
+[원 논문 : Improved Techniques for Training GANs](https://arxiv.org/pdf/1606.03498.pdf)
+
 ### Introduction
  GAN은 게임 이론에 기반하여 생성 모델을 학습하는 방법론입니다. 최근의 GAN 모델들은 좋은 품질의 샘플을 생성합니다. Generator와 Discriminator 모델이 서로 경쟁하면서 더 좋은 품질의 가짜 샘플을 만들어내도록 학습됩니다. 이론적으로 GAN을 트레이닝하는 과정은, 연속적이고 고차원의 파라미터들을 가진 non-convex game에서 __Nash equilibrium__ 을 찾는 일입니다. 하지만 GAN은 전형적으로 두 모델 간의 Nash Equilibrium을 찾는 일 보다는, Gradient Descent 알고리즘을 사용하여 cost 함수를 최소화하는 과정에 초점이 맞춰져 있습니다. 이론적인 방식으로 Nash Equilibrium을 찾으려고 하면, 알고리즘이 수렴에 실패할 것이기 때문입니다.
  따라서 논문에서는, 학습하는 GAN 모델이 해결하는 __Game__ 을 수렴시키기 위한 여러 방법들을 제안합니다.
