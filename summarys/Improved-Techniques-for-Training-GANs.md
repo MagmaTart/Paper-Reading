@@ -11,7 +11,7 @@
  
  각각의 플레이어가 각각의 목적 함수를 최소화할 때 Nash Equilibrium에 도달한다는 아이디어는, GAN에서 각 모델의 cost를 최소화하여 이 Game을 수렴시킬 수 있다고 생각하게 만들기에 충분했습니다. 하지만 GAN과 같이 상호 비협조적인 Game의 특성 상, ![](https://latex.codecogs.com/gif.latex?J%5E%7B%28D%29%7D)를 최소화하기 위해 ![](https://latex.codecogs.com/gif.latex?%5Ctheta%5E%7B%28D%29%7D)를 변경하면 자연스럽게 ![](https://latex.codecogs.com/gif.latex?J%5E%7B%28G%29%7D)가 증가하게 되고, 반대로 ![](https://latex.codecogs.com/gif.latex?J%5E%7B%28G%29%7D)를 최소화하기 위해 ![](https://latex.codecogs.com/gif.latex?%5Ctheta%5E%7B%28G%29%7D)를 변경하면 ![](https://latex.codecogs.com/gif.latex?J%5E%7B%28D%29%7D)가 증가합니다. 이전의 GAN 모델들은 이런 수렴 가능성의 부족에도 불구하고, 이론적으로 정립된 모습을 취하기 위해서 두 모델의 cost를 동시에 줄이는 방법을 택했습니다. 이 논문에서는 이 상황을 기반으로 하여, 모델의 수렴 가능성을 높일 수 있는 몇 가지 방법을 제시합니다.
  
-##### Feature Maching
+#### Feature Maching
  이 기법은 Generator가 현재의 Discriminator 모델보다 먼저 트레이닝되는 경향을 방지하기 위해 새로운 목적 함수를 추가하는 방법입니다. Generator가 생성한 샘플이 무조건 Discriminator의 출력을 크게 만드는 방향으로 학습하게 하는 대신, 목적 함수에 Generator가 실제 데이터와 비슷한 이미지를 생성하도록 만드는 부분을 추가합니다. 정확히 말하면, Generator가 Discriminator 모델의 중간 레이어에 표현된 Feature 값에 맞추어지도록 학습하는 것입니다.
   ![](https://latex.codecogs.com/gif.latex?%5Cmathbf%7Bf%7D%28%5Cboldsymbol%7Bx%7D%29)가 Discriminator의 중간 레이어들과 Activation을 거친 출력이라고 할 때, Generator에 추가할 새로운 목적 함수는 다음과 같습니다.
   
@@ -19,7 +19,7 @@
   
  Discriminator에 실제 데이터를 입력했을 때 Activation을 거친 후의 출력과 Generator가 만들어낸 가짜 이미지를 Discriminator에 넣었을 때의 출력의 차를 구합니다. 이를 최소화하는 과정은 결국 Generator가 실제 이미지의 Feature에 맞추어 이미지를 생성하도록 학습하는 것으로 이어지겠죠.
  
-##### Minibatch Discrimination
+#### Minibatch Discrimination
  GAN이 학습에 실패하는 대표적인 증상 중 하나가 __Mode Collapse__ 문제입니다. Collapse에 가까워지면, Discriminator의 Gradient는 비슷한 데이터 포인트들에서 비슷한 방향을 향하게 됩니다. 이는 Discriminator가 각각의 샘플들을 독립적으로 보기 때문입니다. 따라서 Gradient들을 상호간에 맞추어 조정할 수도 없기 때문에, Generator의 출력이 다양해지게(Dissimilar) 만들 방법이 없습니다. 따라서 Generator는 Discriminator가 높은 확률로 진짜 데이터라고 믿는 하나의 데이터를 생성하는 포인트로 수렴하게 됩니다. Collapse가 일어나면, Discriminator는 Collapse가 일어난 그 하나의 포인트가 Generator가 생성한 데이터라는 것을 학습합니다. 하지만 Gradient Descent로는 비슷한 Sample들을 구분할 수 없기 때문에, Discriminator는 그 하나의 포인트에만 반응하도록 학습됩니다. 결국 Generator는 실제 데이터의 Distribution에 수렴할 수 없습니다. 이 문제를 해결하기 위해서 논문의 저자들은, Discriminator가 독립된 샘플들을 각각 보게 하지 말고, 여러 샘플들이 담긴 __Minibatch__ 를 분류시키자는 아이디어를 제안했습니다.
  
  __Minibatch Discrimination__ 의 아이디어는 간단합니다. Discriminator가 Sample들을 각각 보는 것 보다는 여러 개의 Sample들을 한번에 보게 만드는 것이 Collapse를 해결하는 데에 도움을 준다는 것입니다. Batch Normalization을 Discriminator에 사용한 결과가 이것이 실제로 효과가 있음을 보여주었습니다. 논문의 저자들은, 지금까지 Generator의 __특히 가까운 Sample__ 들을 목표로 하는 모델에 실험을 제한했다고 말합니다. 논문에서는 Minibatch 내 Sample끼리의 'closeness'를 계산하기 위한 새로운 방법을 정의하고, 이를 이용해 Minibatch로 Discrimination하기 위한 새로운 방법을 제안합니다.
@@ -46,14 +46,14 @@
  
  논문에서는 이런 Minibatch단위 계산을 Generator가 생성한 Sample과 실제 데이터에 대해 따로 수행하고 있습니다. 이전에는 Discriminator가 하나의 샘플만을 보고 진짜와 가짜를 구별해야 했다면, Minibatch Discrimination을 통해 구분을 위한 __Side Information__ 을 제공할 수 있게 되었다고 논문에서는 주장합니다.
  
-##### Historical Averaging
+#### Historical Averaging
  이 기법은, 과거 Parameter들의 평균에서 현재 Parameter가 멀어지는 것을 방지합니다. 이를 통해 Parameter의 경향을 파악하고, 급격한 변화를 방지합니다. 방법은 간단합니다. ![](https://latex.codecogs.com/gif.latex?%5Ctheta%5Bi%5D)가 이전 ![](https://latex.codecogs.com/gif.latex?i)번째의 Parameter라고 놓을 때, 두 모델의 cost에 각각의 Parameter들에 대해 다음 항을 추가해줍니다.
  
  ![](https://latex.codecogs.com/gif.latex?%7C%7C%5Ctheta%20-%20%5Ctfrac%7B1%7D%7Bt%7D%20%5CSigma%5Et_%7Bi%3D1%7D%20%5Ctheta%5Bi%5D%7C%7C%5E2)
  
  논문에서는 이 방법을 사용하여 낮은 차원의 연속적 non-convex game에서 Equilibrium을 찾을 수 있음을 확인했습니다. 따라서 이 방법을 GAN의 Equilibrium을 찾는 데에 활용하였다고 합니다.
  
-##### One-sided Label Smoothing
+#### One-sided Label Smoothing
  __Label Smoothing__ 은, 분류기의 Target value를 0과 1이 아닌 0.9, 0.1 등으로 약간의 변화를 주는 기법입니다. 이는 인공신경망의 학습에 방해가 되는 __Adversarial Example__ 들에 의해서 생기는 신경망의 취약성을 줄여준다는 점을 확인하였습니다.
  
   Positive Label을 1 대신 ![](https://latex.codecogs.com/gif.latex?%5Calpha), Negative Label을 0 대신 ![](https://latex.codecogs.com/gif.latex?%5Cbeta)로 놓았을 때, Optimal Discriminator ![](https://latex.codecogs.com/gif.latex?D%28x%29)는 다음과 같습니다.
@@ -62,7 +62,7 @@
    
   하지만 이 식의 분자에 ![](https://latex.codecogs.com/gif.latex?p_%7B%5Ctext%7Bmodel%7D%7D%28x%29)이 들어가서 생기는 문제는, ![](https://latex.codecogs.com/gif.latex?p_%7B%5Ctext%7Bdata%7D%7D)가 0에 가깝고 ![](https://latex.codecogs.com/gif.latex?p_%7B%5Ctext%7Bmodel%7D%7D)이 큰 구간에서는 ![](https://latex.codecogs.com/gif.latex?p_%7B%5Ctext%7Bmodel%7D%7D)에서 Sampling한 가짜 Sample이 실제 데이터에 가까워지도록 자극할 수 없다는 것입니다. 따라서 논문의 저자들은 Positive Label만 Smoothing하고, Negative Label은 그대로 0으로 놔두었습니다.
   
-##### Virtual Batch Normalization
+#### Virtual Batch Normalization
  Batch Normalization은 특히 GAN의 Generator에 사용되었을 때 좋은 성능을 보이긴 합니다. 하지만 특성상 가지는 문제가 있는데, 네트워크의 입력 ![](https://latex.codecogs.com/gif.latex?%5Cboldsymbol%7Bx%7D)에 대한 출력이 Normalization에 사용되는 Batch 내의 다른 ![](https://latex.codecogs.com/gif.latex?%5Cboldsymbol%7Bx%7D%20%5Cprime) 샘플들에 영향을 크게 받는다는 것입니다. 따라서 논문의 저자들은 이를 해결하기 위한 __Virtual Batch Normalization__ 을 제안합니다. 방법은 단순합니다. Batch Norm을 한 번이 아닌 두 번 시행하는데, 하나는 현재 ![](https://latex.codecogs.com/gif.latex?%5Cboldsymbol%7Bx%7D)를 가지고 시행하고, 하나는 네트워크의 트레이닝을 시작할 때 미리 유일하게 추출해놓은 __Reference Batch__ 를 이용해 시행합니다. VBN은 두개의 Minibatch에 대한 순전파 연산을 시행해야 하므로 컴퓨팅 부하가 큽니다. 따라서 논문의 저자들은 이 기법을 Generator 네트워크에만 이용했다고 합니다.
  
 ### Assessment of image quality
@@ -102,7 +102,7 @@ GAN은 특히, 모델의 성능을 객관적으로 평가하기 위한 Objective
  
  Unsupervised Loss를 사용한 Semi-supervised Learning은 G 모델을 트레이닝하는 데에서 Minibatch Discrimination보다 더 좋은 성능을 보여주었다고 논문에서는 소개하고 있습니다.
  
- ##### Importance of labels for image quality
+ #### Importance of labels for image quality
  Semi-supervised Learning을 도입하면, 모델의 성능 평가를 인간의 판단으로 진행헀을 때에, Generator의 이미지 생성 품질이 향상되는 놀라운 효과도 거둘 수 있었습니다. 논문에서는, 사람의 시각 시스템이 어떤 물체를 분류할 때, 물체의 특징을 파악할 수 있는 이미지의 일부에 강하게 반응하는 것과 같은 맥락이라고 설명합니다. Discriminator가 이미지의 클래스를 분류하도록 학습함으로써, 인간의 시각 시스템이 강조해서 보는 이미지의 특징을 Generator가 개발하도록 만들어준다는 것입니다.
  
  ### Experiments
