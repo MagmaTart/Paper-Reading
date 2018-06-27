@@ -6,7 +6,7 @@
 ### Introduction
 지금까지의 SR 문제는 이미지의 특징적인 디테일보다는 'Upscaling' 자체에 집중하는 경향이 강했습니다. Supervised SR 알고리즘의 최적화 목적 함수는 보통 원본 이미지와 만들어낸 이미지의 MSE인 경우가 많았습니다. MSE를 최소화하면 SNR이 극대회되는 결과를 가져오므로 편리합니다. 하지만 MSE는 픽셀 단위에서 이미지를 비교하기 때문에, 고해상도에서의 디테일한 특징을 잡기가 힘들었습니다. 논문에 제시된 아래 그림에서 볼 수 있듯이, SNR이 높다고 해서 SR의 결과가 좋은 것만은 아닙니다.
 
-![](../images/SRGAN/figure1.PNG)
+![](../images/SRGAN/figure2.PNG)
 
 모델에 의해 해상도가 향상된 사진과 원본 이미지의 특징적인 차이는, 향상된 사진이 사실적이지 않다는 것으로 해석할 수 있습니다.
 
@@ -16,6 +16,10 @@ SR 작업에 GAN을 적용하면, GAN의 특성 상 SR을 거쳐 만든 이미�
 - 논문에서는 4배의 해상도 향상을 보이는 단일 이미지 SR을 위한 State-of-the-art 모델을 제안합니다. 모델은 16개의 Residual Block으로 이루어져 있고, MSE로 트레이닝됩니다.
 - GAN을 기반으로 하여 Perceptual loss로 트레이닝되는 SRGAN을 제안합니다. 또한 VGG 네트워크 상의 Feature map을 이용하여 계산되는 MSE 기반 Content loss 또한 사용합니다.
 - 또한 논문에서 제안한 모델이 Mean Opinion Score에서 State-of-the-art 성능을 보이는 것을 확인하였습니다. Mean Opinion Score(MOS)는 인간의 평가로 측정하는 점수로, 논문에서는 SR로 만든 고해상도 이미지의 품질을 실제 사람들에게 평가시킨 것 같습니다.
+
+모델의 성능은 아래와 같이, 언뜻 보면 구분하기 힘든 SR 성능을 보여주고 있습니다.
+
+![](../images/SRGAN/figure1.PNG)
 
 ### Method
 논문에서 풀려고 하는 SISR(Single-Image Super-Resolution)은 낮은 해상도의 입력 이미지 ![](https://latex.codecogs.com/gif.latex?I%5E%7BLR%7D)의 해상도를 향상시킨 ![](https://latex.codecogs.com/gif.latex?I%5E%7BSR%7D)을 만드는 것을 목표로 합니다. ![](https://latex.codecogs.com/gif.latex?I%5E%7BLR%7D)은 고해상도 이미지 ![](https://latex.codecogs.com/gif.latex?I%5E%7BHR%7D)을 Downsampling factor ![](https://latex.codecogs.com/gif.latex?r)을 가지고 Gaussian Filter를 적용하여 해상도를 낮추어 만들어집니다. 간단히 표현하자면, ![](https://latex.codecogs.com/gif.latex?I%5E%7BHR%7D)과 ![](https://latex.codecogs.com/gif.latex?I%5E%7BSR%7D)이 ![](https://latex.codecogs.com/gif.latex?rW%20%5Ctimes%20rH%20%5Ctimes%20C)의 사이즈를 가지는 이미지일 때, ![](https://latex.codecogs.com/gif.latex?I%5E%7BLR%7D)은 ![](https://latex.codecogs.com/gif.latex?W%20%5Ctimes%20H%20%5Ctimes%20C)의 사이즈를 가집니다.
