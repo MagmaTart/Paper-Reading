@@ -21,3 +21,4 @@ Read AWESOME PAPERS of deep learning!
 16. [Energy-Based Generative Adversarial Networks (EBGAN)](./summarys/EBGAN.md)
 17. [Improved Techniques for Training GANs](./summarys/Improved-Techniques-for-Training-GANs.md)
 18. [ImageNet Classification with Deep Convolutional Neural Networks (AlexNet)](./summarys/AlexNet.md)
+19. [Photo-Realistic Single Image Super-Resolution Using a Generative Adversarial Network (SRGAN)](./summarys/SRGAN.md)
