@@ -1,5 +1,5 @@
 # Paper-Reading
-(Deprecated) 최신 글은 [magmatart.dev]([https://magmatart.dev](https://magmatart.dev/archive.html?tag=Deep+Learning)에서 확인 가능합니다.
+(Deprecated) 최신 글은 [magmatart.dev](https://magmatart.dev/archive.html?tag=Deep+Learning)에서 확인 가능합니다.
 
 ### Lists
 
